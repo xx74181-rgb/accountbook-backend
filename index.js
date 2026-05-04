@@ -49,63 +49,68 @@ function formatDate(str) {
 
 function guessCategory(name) {
   if (!name) return 'misc';
-  const n = name.toLowerCase();
-  if (/\u5168\u806f|\u5bb6\u6a02\u798f|\u5927\u6f64\u767c|costco|\u597d\u5e02\u591a|\u9802\u597d|\u611b\u8cb7/.test(n)) return '\u57fa\u790e\u98f2\u98df';
-  if (/\u9ea5\u7576\u52de|\u80af\u5fb7\u57fa|\u6469\u65af|\u6f22\u5821\u738b|subway|\u9b0d\u9b0d\u5f35|\u5409\u91ce\u5bb6|\u722d\u9bae/.test(n)) return '\u9910\u5ede\u6d88\u8cbb';
-  if (/\u661f\u5df4\u514b|starbucks|\u8def\u6613\u838e|cama|85\u5ea6|\u6e05\u5fc3|50\u5d50|\u4e00\u82b3/.test(n)) return '\u98f2\u6599\u548b\u554a';
-  if (/netflix|spotify|apple|google|youtube|disney|line/.test(n)) return '\u8a02\u95b1\u8cbb';
-  if (/\u4e2d\u83ef\u96fb\u4fe1|\u53f0\u7063\u5927\u54e5\u5927|\u9060\u50b3|\u53f0\u54e5\u5927|\u4e9e\u592a/.test(n)) return '\u96fb\u4fe1\u8cbb';
-  if (/\u6377\u904b|\u516c\u8eca|\u53f0\u9435|\u9ad8\u9435|\u5ba2\u904b/.test(n)) return '\u5927\u773e\u904b\u8f38';
-  if (/uber|\u8a08\u7a0b\u8eca|taxi/.test(n)) return 'Uber/\u8a08\u7a0b';
-  if (/\u85e5\u5c40|\u85e5\u599d|\u5c48\u81e3\u6c0f|\u5eb7\u662f\u7f8e|\u5927\u6a39/.test(n)) return '\u85e5\u54c1';
-  if (/\u5065\u8eab|gym/.test(n)) return '\u5065\u8eab\u623f';
-  if (/\u8aa0\u54c1|\u535a\u5ba2\u4f86|\u91d1\u77f3\u5802/.test(n)) return '\u66f8\u7c4d';
-  if (/\u8dd1\u76ae|\u8cfc\u7269|momo|pchome|yahoo/.test(n)) return '\u8cfc\u7269';
-  if (/\u5168\u5bb6|7-eleven|\u840a\u723e\u5bcc|ok\u8d85\u5546/.test(n)) return '\u57fa\u790e\u98f2\u98df';
-  if (/\u8a3a\u6240|\u91ab\u9662/.test(n)) return '\u770b\u8a3a';
-  return '\u96dc\u8cbb';
+  const n = name;
+  if (n.indexOf('全聯') >= 0 || n.indexOf('家樂福') >= 0 || n.indexOf('好市多') >= 0) return '基礎飲食';
+  if (n.indexOf('麥當勞') >= 0 || n.indexOf('肯德基') >= 0 || n.indexOf('摩斯') >= 0) return '餐廳消費';
+  if (n.indexOf('星巴克') >= 0 || n.indexOf('路易莎') >= 0 || n.indexOf('85度') >= 0) return '飲料咖啡';
+  if (n.toLowerCase().indexOf('netflix') >= 0 || n.toLowerCase().indexOf('spotify') >= 0) return '訂閱費';
+  if (n.indexOf('中華電信') >= 0 || n.indexOf('台灣大哥大') >= 0 || n.indexOf('遠傳') >= 0) return '電信費';
+  if (n.indexOf('捷運') >= 0 || n.indexOf('公車') >= 0 || n.indexOf('台鐵') >= 0) return '大眾運輸';
+  if (n.toLowerCase().indexOf('uber') >= 0 || n.indexOf('計程車') >= 0) return 'Uber/計程';
+  if (n.indexOf('藥局') >= 0 || n.indexOf('藥妝') >= 0 || n.indexOf('屈臣氏') >= 0) return '藥品';
+  if (n.indexOf('健身') >= 0) return '健身房';
+  if (n.indexOf('誠品') >= 0 || n.indexOf('博客來') >= 0) return '書籍';
+  if (n.indexOf('蝦皮') >= 0 || n.indexOf('momo') >= 0 || n.indexOf('PChome') >= 0) return '購物';
+  if (n.indexOf('全家') >= 0 || n.indexOf('7-ELEVEN') >= 0 || n.indexOf('萊爾富') >= 0) return '基礎飲食';
+  if (n.indexOf('診所') >= 0 || n.indexOf('醫院') >= 0) return '看診';
+  return '雜費';
 }
 
 function guessIcon(name) {
-  if (!name) return '\ud83e\uddfe';
-  const n = name.toLowerCase();
-  if (/\u5168\u806f|\u5bb6\u6a02\u798f|\u597d\u5e02\u591a/.test(n)) return '\ud83d\uded2';
-  if (/\u9ea5\u7576\u52de|\u80af\u5fb7\u57fa|\u6469\u65af/.test(n)) return '\ud83c\udf54';
-  if (/\u661f\u5df4\u514b|\u8def\u6613\u838e|85\u5ea6/.test(n)) return '\u2615';
-  if (/netflix|disney/.test(n)) return '\ud83c\udfac';
-  if (/spotify/.test(n)) return '\ud83c\udfb5';
-  if (/\u6377\u904b|\u516c\u8eca|\u53f0\u9435/.test(n)) return '\ud83d\ude8c';
-  if (/uber|\u8a08\u7a0b/.test(n)) return '\ud83d\ude97';
-  if (/\u85e5\u5c40|\u85e5\u599d/.test(n)) return '\ud83d\udc8a';
-  if (/\u5065\u8eab|gym/.test(n)) return '\ud83c\udfcb\ufe0f';
-  if (/\u8dd1\u76ae|momo|pchome/.test(n)) return '\ud83d\udecd\ufe0f';
-  if (/\u5168\u5bb6|7-eleven|\u840a\u723e\u5bcc/.test(n)) return '\ud83c\udfe6';
-  if (/\u8a3a\u6240|\u91ab\u9662/.test(n)) return '\ud83c\udfe5';
-  return '\ud83e\uddfe';
+  if (!name) return '🧾';
+  const n = name;
+  if (n.indexOf('全聯') >= 0 || n.indexOf('家樂福') >= 0) return '🛒';
+  if (n.indexOf('麥當勞') >= 0 || n.indexOf('肯德基') >= 0) return '🍔';
+  if (n.indexOf('星巴克') >= 0 || n.indexOf('路易莎') >= 0) return '☕';
+  if (n.indexOf('全家') >= 0 || n.indexOf('7-ELEVEN') >= 0) return '🏪';
+  if (n.indexOf('捷運') >= 0 || n.indexOf('公車') >= 0) return '🚌';
+  if (n.toLowerCase().indexOf('uber') >= 0) return '🚗';
+  if (n.indexOf('藥局') >= 0 || n.indexOf('藥妝') >= 0) return '💊';
+  if (n.indexOf('健身') >= 0) return '🏋️';
+  if (n.indexOf('蝦皮') >= 0 || n.indexOf('momo') >= 0) return '🛍️';
+  if (n.indexOf('診所') >= 0 || n.indexOf('醫院') >= 0) return '🏥';
+  return '🧾';
 }
 
 app.get('/', function(req, res) {
-  res.json({ status: 'ok', message: 'Backend v2 running', version: '2.0' });
+  res.json({ status: 'ok', message: 'Backend v3 running', version: '3.0' });
 });
 
 app.post('/api/invoices', async function(req, res) {
-  const barcode = req.body.barcode;
-  const startDate = req.body.startDate;
-  const endDate = req.body.endDate;
+  var barcode = req.body.barcode;
+  var startDate = req.body.startDate;
+  var endDate = req.body.endDate;
 
   if (!barcode) {
     return res.status(400).json({ error: 'Missing barcode' });
   }
 
-  const timeStamp = Math.floor(Date.now()/1000).toString();
-  const cardEncrypt = aesEncrypt(barcode, API_KEY);
-  const start = startDate || getStartDate();
-  const end = endDate || getTodayDate();
+  // Ensure barcode starts with /
+  if (barcode.charAt(0) !== '/') {
+    barcode = '/' + barcode;
+  }
+  barcode = barcode.toUpperCase();
 
-  console.log('Query:', barcode, start, '-', end);
+  var timeStamp = Math.floor(Date.now()/1000).toString();
+  var cardEncrypt = aesEncrypt(barcode, API_KEY);
+  var start = startDate || getStartDate();
+  var end = endDate || getTodayDate();
+
+  console.log('Query barcode:', barcode, 'len:', barcode.length);
+  console.log('Date range:', start, '-', end);
   console.log('cardEncrypt:', cardEncrypt);
 
-  const params = new URLSearchParams();
+  var params = new URLSearchParams();
   params.append('version', '0.5');
   params.append('type', 'Carrier');
   params.append('carrierId2', barcode);
@@ -119,31 +124,46 @@ app.post('/api/invoices', async function(req, res) {
   params.append('uuid', crypto.randomUUID());
 
   try {
-    const response = await axios.post(MOF_API, params.toString(), {
+    var response = await axios.post(MOF_API, params.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       timeout: 15000,
+      responseType: 'text',
     });
 
-    const data = response.data;
-    console.log('MOF response code:', data.code, 'count:', (data.details||[]).length);
+    console.log('Raw response type:', typeof response.data);
+    console.log('Raw response preview:', String(response.data).slice(0, 300));
 
-    if (data.code !== 200 && data.code !== '200') {
-      const msgs = {
-        'INV114': 'Barcode verification failed',
-        'INV115': 'Wrong verification code',
-        'INV116': 'Barcode does not exist',
-        'INV117': 'Date range too long',
-        'INV106': 'No invoices found',
-      };
-      const msg = msgs[data.code] || ('MOF error: ' + data.code);
-      return res.status(400).json({ error: msg, code: data.code });
+    var data;
+    try {
+      data = JSON.parse(response.data);
+    } catch(e) {
+      data = response.data;
     }
 
-    const invoices = (data.details || []).map(function(inv) {
+    console.log('Parsed code:', data.code, 'type:', typeof data.code);
+
+    var code = String(data.code || '');
+    if (code !== '200') {
+      var msgs = {
+        'INV114': '手機條碼驗證失敗，請確認條碼正確',
+        'INV115': '驗證碼錯誤',
+        'INV116': '手機條碼不存在',
+        'INV117': '查詢區間超過限制',
+        'INV106': '查無發票資料',
+        'INV111': 'appID錯誤',
+        'INV112': '時間戳記錯誤',
+        'INV113': '版本錯誤',
+      };
+      var msg = msgs[code] || ('財政部回傳: ' + code + ' 原始: ' + JSON.stringify(data).slice(0,100));
+      return res.status(400).json({ error: msg, code: code, raw: String(response.data).slice(0,200) });
+    }
+
+    var details = data.details || [];
+    var invoices = details.map(function(inv) {
       return {
         no: inv.invNum || '',
         date: formatDate(inv.invDate),
-        merchant: inv.sellerName || 'Unknown',
+        merchant: inv.sellerName || '未知商家',
         amount: parseInt(inv.amount) || 0,
         category: guessCategory(inv.sellerName || ''),
         icon: guessIcon(inv.sellerName || ''),
@@ -153,30 +173,31 @@ app.post('/api/invoices', async function(req, res) {
     res.json({ success: true, count: invoices.length, invoices: invoices });
 
   } catch(error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: 'Cannot connect to MOF platform' });
+    console.error('Axios error:', error.message);
+    if (error.response) {
+      console.error('Status:', error.response.status);
+      console.error('Data:', String(error.response.data).slice(0,200));
+    }
+    res.status(500).json({ error: '無法連線到財政部平台: ' + error.message });
   }
 });
 
 app.post('/api/invoice-detail', async function(req, res) {
-  const invNum = req.body.invNum;
-  const invDate = req.body.invDate;
-
-  const params = new URLSearchParams();
+  var invNum = req.body.invNum || '';
+  var params = new URLSearchParams();
   params.append('version', '0.5');
   params.append('type', 'General');
-  params.append('invNum', invNum || '');
+  params.append('invNum', invNum);
   params.append('action', 'qryInvDetail');
   params.append('generation', 'V2');
   params.append('appID', APP_ID);
   params.append('uuid', crypto.randomUUID());
-
   try {
-    const r = await axios.post(MOF_API, params.toString(), {
+    var r = await axios.post(MOF_API, params.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       timeout: 10000,
     });
-    const items = (r.data.details || []).map(function(i) {
+    var items = (r.data.details || []).map(function(i) {
       return {
         name: i.description || '',
         qty: parseFloat(i.quantity) || 1,
@@ -190,5 +211,5 @@ app.post('/api/invoice-detail', async function(req, res) {
 });
 
 app.listen(PORT, function() {
-  console.log('Backend started on port ' + PORT);
+  console.log('Backend v3 started on port ' + PORT);
 });
